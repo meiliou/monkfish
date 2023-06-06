@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create our Restaurant model
-// class Restaurant extends Model {
+class Restaurant extends Model {}
 //   static upvote(body, models) {
 //     return models.Vote.create({
 //       user_id: body.user_id,
