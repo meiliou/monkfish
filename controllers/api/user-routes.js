@@ -1,8 +1,6 @@
-const express = require('express');
+const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 const { User } = require('../../models');
-
-const router = express.Router();
 
 // GET /api/users
 router.get('/', (req, res) => {
