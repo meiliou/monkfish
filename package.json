@@ -1,5 +1,5 @@
 {
-  "name": "monkfish-pasta",
+  "name": "monkfish",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meiliou/monkfish-pasta.git"
+    "url": "git+https://github.com/meiliou/monkfish.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meiliou/monkfish-pasta/issues"
+    "url": "https://github.com/meiliou/monkfish/issues"
   },
-  "homepage": "https://github.com/meiliou/monkfish-pasta#readme",
+  "homepage": "https://github.com/meiliou/monkfish#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "connect-session-sequelize": "^7.1.7",
