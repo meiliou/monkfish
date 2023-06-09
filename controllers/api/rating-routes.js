@@ -8,10 +8,10 @@ router.get('/', (req, res) => {
         //   'id', 
         //   'comment_text', 
         //   'user_id', 
-        //   'post_id'],
+        //   'restaurant_id'],
         // order: [['created_at', 'DESC']]
       })
-        .then(dbCommentData => res.json(dbCommentData))
+        .then(dbRatingData => res.json(dbRatingData))
         .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -26,10 +26,10 @@ router.post('/', (req, res) => {
       rating: req.body.rating,
       comment: req.body.comment,
       restaurant_id: req.body.restaurant_id
-      // use the id from the session - remember to add this back later
+      // use the id from the session - add this back later
     //   user_id: req.session.user_id
     })
-      .then(dbCommentData => res.json(dbCommentData))
+      .then(dbRatingData => res.json(dbRatingData))
       .catch(err => {
         console.log(err);
         res.status(400).json(err);
@@ -44,12 +44,12 @@ router.delete('/:id', (req, res) => {
           id: req.params.id
         }
       })
-        .then(dbCommentData => {
-          if (!dbCommentData) {
+        .then(dbRatingData => {
+          if (!dbRatingData) {
             res.status(404).json({ message: 'No rating found with this id' });
             return;
           }
-          res.json(dbCommentData);
+          res.json(dbRatingData);
         })
         .catch(err => {
           console.log(err);

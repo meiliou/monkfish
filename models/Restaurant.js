@@ -2,30 +2,32 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create our Restaurant model
-class Restaurant extends Model {}
-//   static upvote(body, models) {
-//     return models.Vote.create({
-//       user_id: body.user_id,
-//       Restaurant_id: body.Restaurant_id
-//     }).then(() => {
-//       return Restaurant.findOne({
-//         where: {
-//           id: body.Restaurant_id
-//         },
-//         attributes: [
-//           'id',
-//           'Restaurant_url',
-//           'title',
-//           'created_at',
-//           [
-//             sequelize.literal('(SELECT COUNT(*) FROM vote WHERE Restaurant.id = vote.Restaurant_id)'),
-//             'vote_count'
-//           ]
-//         ]
-//       });
-//     });
-//   }
-// }
+class Restaurant extends Model {
+  static gotRated(body, models) {
+    return models.Rating.create({
+      // user_id: body.user_id,  // add back later
+      restaurant_id: body.restaurant_id
+    }).then(() => {
+      return Restaurant.findOne({
+        where: {
+          id: body.restaurant_id
+        },
+        attributes: [
+          'id',
+          'name',
+          'description',
+          'address',
+          'restaurant_url',
+          'created_at',
+          [
+            sequelize.literal('(SELECT COUNT(*) FROM rating WHERE restaurant.id = rating.restaurant_id)'),
+            'rating_count'
+          ]
+        ]
+      });
+    });
+  }
+}
 
 // create fields/columns for Restaurant model
 Restaurant.init(
@@ -63,5 +65,6 @@ Restaurant.init(
       modelName: 'restaurant'
     }
 );
+
 
 module.exports = Restaurant;

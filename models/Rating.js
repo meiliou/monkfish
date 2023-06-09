@@ -10,6 +10,18 @@ Rating.init(
         primaryKey: true,
         autoIncrement: true
       },
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 1,
+          max: 5
+        }
+      },
+      comment: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
       // user_id: {
       //   type: DataTypes.INTEGER,
       //   allowNull: false,
@@ -26,18 +38,6 @@ Rating.init(
           key: 'id'
         }
       },
-      rating: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          min: 1,
-          max: 5
-        }
-      },
-      comment: {
-        type: DataTypes.TEXT,
-        allowNull: true
-      }
     },
     {
       sequelize,
