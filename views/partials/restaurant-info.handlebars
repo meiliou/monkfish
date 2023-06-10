@@ -1,0 +1,14 @@
+<article class="restaurant">
+    <div class="name">
+        <a href="{{restaurant_url}}" target="_blank">{{name}}</a>
+        <span>({{format_url restaurant_url}})</span>
+    </div>
+    <div class="meta">
+        {{!-- {{rating_count}} {{format_plural "rating" rating_count}} by {{user.username}} on --}}
+        {{!-- {{format_date created_at}} // {{add user.username}} --}}
+        {{rating_count}} {{format_plural "rating" rating_count}} by Replace w/User on
+        {{format_date created_at}}
+        |
+        <a href="/restaurant/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+    </div>
+</article>
