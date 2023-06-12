@@ -1,8 +1,8 @@
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
-// const helpers = require('./utils/helpers');
-// const exphbs = require('express-handlebars');
+const helpers = require('./utils/helpers');
+const exphbs = require('express-handlebars');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,11 +22,11 @@ const sess = {
   })
 };
 
-// const hbs = exphbs.create({ helpers});
+const hbs = exphbs.create({ helpers });
 
 // set up handlebars.js engine with custom helpers
-// app.engine('handlebars', hbs.engine);
-// app.set('view engine', 'handlebars');
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 // middleware
 app.use(express.json());
