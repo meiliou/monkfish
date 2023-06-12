@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
         'restaurant_url',
         'created_at',
         [sequelize.literal('(SELECT COUNT(*) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'rating_count'],
-        [sequelize.literal('(SELECT AVG(rating) FROM rating WHERE restaurant.id = rating.restaurant_id)'),'average_rating']
+        [sequelize.literal('(SELECT CAST(AVG(rating) AS DECIMAL(10,1)) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'average_rating']
       ],
         order: [['created_at', 'DESC']], // newest restaurant first
       include: [
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
       'restaurant_url',
       'created_at',
       [sequelize.literal('(SELECT COUNT(*) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'rating_count'],
-      [sequelize.literal('(SELECT AVG(rating) FROM rating WHERE restaurant.id = rating.restaurant_id)'),'average_rating']
+      [sequelize.literal('(SELECT CAST(AVG(rating) AS DECIMAL(10,1)) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'average_rating']
     ],
     include: [
       {
