@@ -22,6 +22,10 @@ class Restaurant extends Model {
           [
             sequelize.literal('(SELECT COUNT(*) FROM rating WHERE restaurant.id = rating.restaurant_id)'),
             'rating_count'
+          ],
+          [
+            sequelize.literal('(SELECT AVG(rating) FROM rating WHERE restaurant.id = rating.restaurant_id)'),
+            'average_rating'
           ]
         ]
       });

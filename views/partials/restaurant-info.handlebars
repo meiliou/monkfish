@@ -1,14 +1,53 @@
-<article class="restaurant">
-    <div class="name">
-        <a href="{{restaurant_url}}" target="_blank">{{name}}</a>
-        <span>({{format_url restaurant_url}})</span>
+<div class="card h-100">
+    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+        <img src="images/{{name}}.jpg" class="img-fluid" />
+        <a href="#!">
+        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
     </div>
-    <div class="meta">
-        {{!-- {{rating_count}} {{format_plural "rating" rating_count}} by {{user.username}} on --}}
-        {{!-- {{format_date created_at}} // {{add user.username}} --}}
-        {{rating_count}} {{format_plural "rating" rating_count}} by Replace w/User on
-        {{format_date created_at}}
-        |
-        <a href="/restaurant/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+    <div class="card-body">
+        <h5 class="card-title font-weight-bold"><a>{{name}}</a></h5>
+        <ul class="list-unstyled list-inline mb-0">
+        <li class="list-inline-item me-0">
+            <i class="fas fa-star text-warning fa-xs"> </i>
+        </li>
+        <li class="list-inline-item me-0">
+            <i class="fas fa-star text-warning fa-xs"></i>
+        </li>
+        <li class="list-inline-item me-0">
+            <i class="fas fa-star text-warning fa-xs"></i>
+        </li>
+        <li class="list-inline-item me-0">
+            <i class="fas fa-star text-warning fa-xs"></i>
+        </li>
+        <li class="list-inline-item">
+            <i class="fas fa-star-half-alt text-warning fa-xs"></i>
+        </li>
+        <li class="list-inline-item">
+            <p class="text-muted"> 4.5 {{average_rating}} ({{rating_count}})</p>
+        </li>
+        </ul>
+        <p class="mb-2">$ • {{address}}</p>
+        <p class="card-text">
+        {{description}}
+        <a href="{{restaurant_url}}" target="_blank">{{restaurant_url}}</a>
+        </p>
+        {{!-- <hr class="my-4" />
+        <p class="lead"><strong>Tonight's availability</strong></p>
+        <ul class="list-unstyled list-inline d-flex justify-content-between">
+        <li class="list-inline-item me-0">
+            <div class="chip me-0">5:30PM</div>
+        </li>
+        <li class="list-inline-item me-0">
+            <div class="chip bg-secondary text-white me-0">7:30PM</div>
+        </li>
+        <li class="list-inline-item me-0">
+            <div class="chip me-0">8:00PM</div>
+        </li>
+        <li class="list-inline-item me-0">
+            <div class="chip me-0">9:00PM</div>
+        </li>
+        </ul> --}}
+        <a href="#!" class="btn btn-link link-secondary p-md-1 mb-0">Rate now</a>
     </div>
-</article>
+</div>
