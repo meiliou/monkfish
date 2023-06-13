@@ -1,11 +1,10 @@
 <div class="container">
   <section class="mx-auto my-5">
-     {{!-- style="max-width: 23rem;" --}}
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
         {{#each restaurants as |restaurant|}}
         <div class="col">  
-            {{> restaurant-info restaurant }}
+            {{> restaurant-info restaurant imageBaseUrl="images" showLink=true}}
         </div>
         {{/each}}
 
@@ -13,4 +12,4 @@
   </section>
 </div>
 
-<script src="/javascript/view-single-restaurant.js"></script>
+{{!-- <script src="/javascript/view-single-restaurant.js"></script> --}}

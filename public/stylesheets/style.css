@@ -3,7 +3,7 @@ body {
 }
 
 /* Create a custom CSS rule to override pointer-events for the image */
-/* The pointer-events: none imported from MBD was negating the event-listener */
+/* The "pointer-events: none" imported from MBD was POSSIBLY negating the event-listener */
 img.no-pointer-events {
   pointer-events: auto;
 }

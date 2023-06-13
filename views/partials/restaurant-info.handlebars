@@ -1,11 +1,13 @@
 <div class="card h-100">
     <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-        <a href="/restaurants/{{id}}">
-        <img src="images/{{name}}.jpg" class="img-fluid restaurant-image" data-restaurant-id="{{id}}" />
-        </a>
+        <p><a href="/restaurant/{{id}}" class="pe-auto">
+        <img src="{{imageBaseUrl}}/{{name}}.jpg" 
+            class="img-fluid restaurant-image" />
+        </a></p>
+        {{!-- The following mask prevents the image from being clickable --}}
         {{!-- <a href="#!"> --}}
-        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-        </a>
+        {{!-- <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div> --}}
+        {{!-- </a> --}}
     </div>
     <div class="card-body">
         <h5 class="card-title font-weight-bold"><a>{{name}}</a></h5>
@@ -15,7 +17,11 @@
             </li>
             <li class="list-inline-item">
                 {{#if average_rating.length}}
-                    <p class="text-muted">{{average_rating}} ({{rating_count}} {{format_plural "rating" rating_count}})</p>
+                    <p class="text-muted">{{average_rating}} 
+                        {{#if showLink}}<a href="/restaurant/{{id}}">{{/if}}
+                            ({{rating_count}} {{format_plural "rating" rating_count}})
+                        {{#if showLink}}</a>{{/if}}
+                    </p>
                 {{else}}
                     <p class="text-muted">No ratings</p>
                 {{/if}}
@@ -28,6 +34,6 @@
             {{description}}
         <a href="{{restaurant_url}}" target="_blank">{{restaurant_url}}</a>
         </p>   
-        <a href="#!" class="btn btn-link link-secondary p-md-1 mb-0">Details</a>
+        <a href="/restaurant/{{id}}" class="btn btn-link link-secondary p-md-1 mb-0">Details</a>
     </div>
 </div>
