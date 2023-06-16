@@ -32,25 +32,25 @@ Restaurant.init(
     {
       id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+      //  allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+       // allowNull: false
       },
       description: {
         type: DataTypes.STRING,
-        allowNull: false
+       /// allowNull: false
       },
       address: {
         type: DataTypes.STRING,
-        allowNull: false
+        //allowNull: false
       },
       restaurant_url: {
         type: DataTypes.STRING,
-        allowNull: false,
+      //  allowNull: false,
         validate: {
           isURL: true
         }
