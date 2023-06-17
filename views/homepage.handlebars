@@ -4,7 +4,10 @@
 
         {{#each restaurants as |restaurant|}}
         <div class="col">  
-            {{> restaurant-info restaurant imageBaseUrl="images" showLink=true}}
+            {{> restaurant-info restaurant 
+                imageBaseUrl="images" 
+                showLink=true 
+                showRatings=false}}
         </div>
         {{/each}}
 

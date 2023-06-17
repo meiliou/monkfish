@@ -4,12 +4,15 @@ const { Rating } = require('../../models');
 
 router.get('/', (req, res) => {
     Rating.findAll({
-        // attributes: [
-        //   'id', 
-        //   'comment_text', 
-        //   'user_id', 
-        //   'restaurant_id'],
-        // order: [['created_at', 'DESC']]
+        attributes: [
+          'id',
+          'rating',
+          'comment', 
+          // 'user_id', 
+          'restaurant_id',
+          'created_at'
+          ],
+        order: [['created_at', 'DESC']],
       })
         .then(dbRatingData => res.json(dbRatingData))
         .catch(err => {
@@ -17,6 +20,45 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
         });
 });
+
+router.get('/:id', (req, res) => {
+  Rating.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: [
+      'id',
+      'rating',
+      'comment',
+      'restaurant_id',
+      // 'user_id', 
+      'created_at'
+    ],
+    order: [['created_at', 'DESC']],
+    include: [
+      // add back in later
+      // {
+      //   model: User,
+      //   attributes: ['username']
+      // }
+    ]
+  })
+    .then(dbPostData => {
+      if (!dbPostData) {
+        res.status(404).json({ message: 'No rating found with this id' });
+        return;
+      }
+      res.json(dbPostData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+
+
+
 
 // router.post('/', withAuth, (req, res) => {
 router.post('/', (req, res) => {

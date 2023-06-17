@@ -1,0 +1,31 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-md-12 col-lg-10">
+        <div class="card text-dark">
+            <div class="card-body p-4">
+                <h4 class="mb-0">Ratings</h4>
+                <p class="fw-light mb-4 pb-2">Latest ratings by professionals</p>
+                {{#each ratings}}
+                <div class="d-flex flex-start">
+                    <img class="rounded-circle shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+                        height="60" />
+                    <div>
+                        <h6 class="fw-bold mb-1 pb-2">Maggie Marsh</h6>
+                        <div class="d-flex align-items-center mb-3">
+                            <p class="mb-0">
+                                {{format_date this.created_at}} {{convertToStarRating this.rating}}
+                            </p>
+                            <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                        </div>
+                        <p class="mb-0">
+                            {{this.comment}}
+                        </p>
+                    </div>
+                </div>
+            <hr class="my-0 pt-2" />
+            {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+    

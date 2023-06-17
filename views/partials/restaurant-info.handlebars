@@ -32,8 +32,13 @@
         </p>
         <p class="card-text">
             {{description}}
-        <a href="{{restaurant_url}}" target="_blank">{{restaurant_url}}</a>
+        </p>
+        <p>
+            <a href="{{restaurant_url}}" target="_blank">{{restaurant_url}}</a>
         </p>   
-        <a href="/restaurant/{{id}}" class="btn btn-link link-secondary p-md-1 mb-0">Details</a>
+        {{!-- <a href="/restaurant/{{id}}" class="btn btn-link link-secondary p-md-1 mb-0">Details</a> --}}
+        {{#if showRatings}}
+            {{> ratings ratings=restaurant.ratings}}
+        {{/if}}
     </div>
 </div>

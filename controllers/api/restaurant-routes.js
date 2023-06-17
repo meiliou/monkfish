@@ -23,6 +23,7 @@ router.get('/', (req, res) => {
         {
           model: Rating,
           attributes: ['id', 'rating', 'comment', 'restaurant_id'], // add 'user_id' to attributes , 'created_at' WHY???
+          order: [['created_at', 'DESC']], // newest rating first
           // include: {
             // model: User, // add this back later
             // attributes: ['username']
@@ -60,6 +61,7 @@ router.get('/:id', (req, res) => {
       {
         model: Rating,
         attributes: ['id', 'rating', 'comment', 'restaurant_id'], // add 'user_id' to attributes , 'created_at'
+        order: [['created_at', 'DESC']], // newest rating first
         // include: {  
       //   //   model: User,  // add this back later
       //   //   attributes: ['username']
