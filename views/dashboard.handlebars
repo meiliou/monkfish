@@ -1,84 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    {{#if user_authorization}}
-    <section>
-        <h1>Create a new Restaurant</h1>
-        <form action="/dashboard" method="POST" enctype="multipart/form-data">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required>
-            </div>
-            <div>
-                <label for="ratings">Ratings:</label>
-                <input type="number" id="ratings" name="ratings" min="1" max="5" step="1" required>
-            </div>
-            <div>
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
-            </div>
-            <div>
-                <label for="image">Image:</label>
-                <input type="file" id="image" name="image" accept="image/*" required>
-            </div>
-            <div>
-                <button type="submit">Add Restaurant</button>
-            </div>
-        </form>
-    </section>
+<!-- Header -->
+<header>
+    {{>header}}
+</header>
+<h1>Welcome to the Dashboard</h1>
 
-    <section>
-        <h1>Edit your Restaurant</h1>
-        <form action="/dashboard" method="POST" enctype="multipart/form-data">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required>
-            </div>
-            <div>
-                <label for="ratings">Ratings:</label>
-                <input type="number" id="ratings" name="ratings" min="1" max="5" step="1" required>
-            </div>
-            <div>
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
-            </div>
-            <div>
-                <label for="image">Image:</label>
-                <input type="file" id="image" name="image" accept="image/*" required>
-            </div>
-            <div>
-                <button type="submit">Edit Restaurant</button>
-            </div>
-        </form>
-    </section>
+{{#if loggedIn}}
+  <h2>Posts</h2>
+  <ul>
+    {{#each posts}}
+      <li>
+        <h3>{{title}}</h3>
+        <p>{{content}}</p>
+        <p>Created by: {{username}}</p>
+        <button>Edit</button>
+      </li>
+    {{/each}}
+  </ul>
 
-    {{else}}
-    <section>
-        <h1>Edit your ratings</h1>
-        <form action="/dashboard" method="POST" enctype="multipart/form-data">
-            <div>
-                <label for="ratings">Ratings:</label>
-                <input type="number" id="ratings" name="ratings" min="1" max="5" step="1" required>
-            </div>
-            <div>
-                <button type="submit">Edit Ratings</button>
-            </div>
-        </form>
-    </section>
-    {{/if}}
-</body>
-</html>
+  <button>Create Post</button>
+
+  <h2>Reviews</h2>
+  <ul>
+    {{#each reviews}}
+      <li>
+        <h3>{{title}}</h3>
+        <p>{{content}}</p>
+        <p>Created by: {{username}}</p>
+        <button>Edit</button>
+      </li>
+    {{/each}}
+  </ul>
+
+  <button>Create Review</button>
+
+  <h2>Restaurants</h2>
+  <ul>
+    {{#each restaurants}}
+      <li>
+        <h3>{{name}}</h3>
+        <p>{{address}}</p>
+        <p>Description: {{description}}</p>
+        <p>Created by: {{username}}</p>
+        <button>Edit</button>
+      </li>
+    {{/each}}
+  </ul>
+
+  <button>Create Restaurant</button>
+{{else}}
+  <p>Please log in to access the dashboard.</p>
+{{/if}}
+
+{{! Path: project2\monkfish\views\login.handlebars }}
+<h1>Login</h1>
+
+<form action="/login" method="POST">
+  <label for="username">Username</label>
+  <input type="text" name="username" id="username" placeholder="Username">
+
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password" placeholder="Password">
+
+  <input type="submit" value="Login">
+</form>
+  
+  {{! Path: project2\monkfish\views\register.handlebars }}
+<h1>Register</h1>
+
+<form action="/register" method="POST">
+  <label for="username">Username</label>
+  <input type="text" name="username" id="username" placeholder="Username">
+
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password" placeholder="Password">
+
+  <input type="submit" value="Register">
+</form>
+  
+  {{! Path: project2\monkfish\views\restaurants.handlebars }}
+<h1>Restaurants</h1>
+
+<ul>
+  {{#each restaurants}}
+    <li>
+      <h3>{{name}}</h3>
+      <p>{{address}}</p>
+      <p>Description: {{description}}</p>
+      <p>Created by: {{username}}</p>
+      <button>View</button>
+    </li>
+  {{/each}}
+</ul>
+  
+  {{! Path: project2\monkfish\views\reviews.handlebars }}
+<h1>Reviews</h1>
+
+
+<!-- Footer -->
+<footer>
+    {{>footer}}
+</footer>

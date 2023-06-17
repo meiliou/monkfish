@@ -1,15 +1,20 @@
 const router = require('express').Router();
 
-const userRoutes = require('./user-routes.js');
-//const roleRoutes = require('./role-routes.js');
-
-const restaurantRoutes = require('./restaurant-routes.js');
+const userRoutes = require('./user-routes');
+const restaurantRoutes = require('./restaurant-routes');
+//const signupController = require('../../controllers/api/signup');
 
 
 router.use('/users', userRoutes);
-//router.use('/roles', roleRoutes);
 router.use('/restaurants', restaurantRoutes);
+//router.post('/api/signup', signupController);
 
+
+
+
+router.use((req, res) => {
+    res.status(404).end();
+});
 
 module.exports = router;
 

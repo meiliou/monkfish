@@ -1,7 +1,23 @@
-<div class="container">
+<div>Hello world</div>
+
+{{!-- <div class="container">
   <section class="mx-auto my-5">
      {{!-- style="max-width: 23rem;" --}}
     <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <h1>Users and Their Posts</h1>
+  <ul>
+    {{#each users as |user|}}
+      <li>
+        <h2>{{name}}</h2>
+        <ul>
+          {{#each posts}}
+            <li>{{title}}</li>
+          {{/each}}
+        </ul>
+      </li>
+    {{/each}}
+  </ul>
 
         {{#each restaurants as |restaurant|}}
         <div class="col">  
@@ -9,6 +25,7 @@
         </div>
         {{/each}}
 
+
     </div>
   </section>
-</div>
+</div> --}}
