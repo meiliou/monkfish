@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection');
-const { Restaurant } = require('../models'); //add user back in later
 
-
+// Define homepage route
+router.get('/', (req, res) => {
+  res.render('homepage'); // Render the "homepage" template
+});
 
 module.exports = router;

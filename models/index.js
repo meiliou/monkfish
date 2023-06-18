@@ -1,6 +1,7 @@
 const User = require('./User');
 const Restaurant = require('./Restaurant');
-//const Rating = require('./Rating');
+const Rating = require('./Rating');
+
 
 // create associations
 // User.hasMany(Post, {

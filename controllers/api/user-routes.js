@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 const { User } = require('../../models');
 
+
 // GET /api/users
 router.get('/', (req, res) => {
   User.findAll({
@@ -162,5 +163,6 @@ router.delete('/:id', (req, res) => {
       res.status(500).json({ error: 'An error occurred' });
     });
 });
+
 
 module.exports = router;

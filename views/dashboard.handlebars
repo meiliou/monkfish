@@ -1,102 +1,39 @@
 <!-- Header -->
-<header>
-    {{>header}}
-</header>
-<h1>Welcome to the Dashboard</h1>
+{{!-- <header>
+    {{> header }}
+</header> --}}
+<h1>goodbye world</h1>
+{{!-- <div>
+  {{> user }}
+</div>
 
-{{#if loggedIn}}
-  <h2>Posts</h2>
-  <ul>
-    {{#each posts}}
-      <li>
-        <h3>{{title}}</h3>
-        <p>{{content}}</p>
-        <p>Created by: {{username}}</p>
-        <button>Edit</button>
-      </li>
-    {{/each}}
-  </ul>
+<div class="container mt-4">
+    <h1>Welcome to the Dashboard</h1>
 
-  <button>Create Post</button>
+    {{#if loggedIn}}
+        <h2>Posts</h2>
+        <ul class="list-group">
+            {{#each posts}}
+                <li class="list-group-item">
+                    <h3>{{title}}</h3>
+                    <p>{{content}}</p>
+                    <p>Created by: {{username}}</p>
+                    <button class="btn btn-primary">Edit</button>
+                </li>
+            {{/each}}
+        </ul>
 
-  <h2>Reviews</h2>
-  <ul>
-    {{#each reviews}}
-      <li>
-        <h3>{{title}}</h3>
-        <p>{{content}}</p>
-        <p>Created by: {{username}}</p>
-        <button>Edit</button>
-      </li>
-    {{/each}}
-  </ul>
+        <button class="btn btn-success mt-3">Create Post</button>
 
-  <button>Create Review</button>
+        <!-- Add the code for ratings and restaurants here -->
 
-  <h2>Restaurants</h2>
-  <ul>
-    {{#each restaurants}}
-      <li>
-        <h3>{{name}}</h3>
-        <p>{{address}}</p>
-        <p>Description: {{description}}</p>
-        <p>Created by: {{username}}</p>
-        <button>Edit</button>
-      </li>
-    {{/each}}
-  </ul>
+    {{else}}
+        <p>Please log in to access the dashboard.</p>
+    {{/if}}
 
-  <button>Create Restaurant</button>
-{{else}}
-  <p>Please log in to access the dashboard.</p>
-{{/if}}
+</div>
 
-{{! Path: project2\monkfish\views\login.handlebars }}
-<h1>Login</h1>
-
-<form action="/login" method="POST">
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username" placeholder="Username">
-
-  <label for="password">Password</label>
-  <input type="password" name="password" id="password" placeholder="Password">
-
-  <input type="submit" value="Login">
-</form>
-  
-  {{! Path: project2\monkfish\views\register.handlebars }}
-<h1>Register</h1>
-
-<form action="/register" method="POST">
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username" placeholder="Username">
-
-  <label for="password">Password</label>
-  <input type="password" name="password" id="password" placeholder="Password">
-
-  <input type="submit" value="Register">
-</form>
-  
-  {{! Path: project2\monkfish\views\restaurants.handlebars }}
-<h1>Restaurants</h1>
-
-<ul>
-  {{#each restaurants}}
-    <li>
-      <h3>{{name}}</h3>
-      <p>{{address}}</p>
-      <p>Description: {{description}}</p>
-      <p>Created by: {{username}}</p>
-      <button>View</button>
-    </li>
-  {{/each}}
-</ul>
-  
-  {{! Path: project2\monkfish\views\reviews.handlebars }}
-<h1>Reviews</h1>
-
-
-<!-- Footer -->
-<footer>
+<!-- Footer --> --}}
+{{!-- <footer>
     {{>footer}}
-</footer>
+</footer> --}}
