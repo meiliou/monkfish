@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Rating } = require('../../models');
+const { Rating, User } = require('../../models');
 // const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
           'id',
           'rating',
           'comment', 
-          // 'user_id', 
+          'user_id', 
           'restaurant_id',
           'created_at'
           ],
@@ -31,16 +31,16 @@ router.get('/:id', (req, res) => {
       'rating',
       'comment',
       'restaurant_id',
-      // 'user_id', 
+      'user_id', 
       'created_at'
     ],
     order: [['created_at', 'DESC']],
     include: [
-      // add back in later
-      // {
-      //   model: User,
-      //   attributes: ['username']
-      // }
+      // added back in
+      {
+        model: User,
+        attributes: ['username']
+      }
     ]
   })
     .then(dbPostData => {
@@ -63,20 +63,26 @@ router.get('/:id', (req, res) => {
 // router.post('/', withAuth, (req, res) => {
 router.post('/', (req, res) => {
   // check the session
-  if (req.session) {
-    Rating.create({
-      rating: req.body.rating,
-      comment: req.body.comment,
-      restaurant_id: req.body.restaurant_id
-      // use the id from the session - add this back later
-    //   user_id: req.session.user_id
+  // if (req.session) {
+  //   console.log('User ID:', req.session.user_id); // Add this line
+  //   Rating.create({
+  //     rating: req.body.rating,
+  //     comment: req.body.comment,
+  //     restaurant_id: req.body.restaurant_id,
+  //     // user the id from the session - add this back later
+  //     user_id: req.session.user_id
+  Rating.create({
+    rating: req.body.rating,
+    comment: req.body.comment,
+    restaurant_id: req.body.restaurant_id,
+    user_id: req.body.user_id
     })
       .then(dbRatingData => res.json(dbRatingData))
       .catch(err => {
         console.log(err);
         res.status(400).json(err);
       });
-  }
+  // }
 });
 
 // router.delete('/:id', withAuth, (req, res) => {

@@ -5,7 +5,7 @@ const sequelize = require('../config/connection');
 class Restaurant extends Model {
   static gotRated(body, models) {
     return models.Rating.create({
-      // user_id: body.user_id,  // add back later
+      user_id: body.user_id,  // added back after
       restaurant_id: body.restaurant_id
     }).then(() => {
       return Restaurant.findOne({

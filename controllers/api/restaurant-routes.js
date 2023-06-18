@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Restaurant, Rating } = require('../../models');
+const { Restaurant, Rating, User } = require('../../models');
 const sequelize = require('../../config/connection');
 // const withAuth = require('../../utils/auth');
 
@@ -22,15 +22,15 @@ router.get('/', (req, res) => {
         // include the Rating model here:
         {
           model: Rating,
-          attributes: ['id', 'rating', 'comment', 'restaurant_id'], // add 'user_id' to attributes , 'created_at' WHY???
+          attributes: ['id', 'rating', 'comment', 'restaurant_id', 'user_id'], // add 'user_id' to attributes , 'created_at' WHY???
           order: [['created_at', 'DESC']], // newest rating first
-          // include: {
-            // model: User, // add this back later
-            // attributes: ['username']
-          // }
-        },
+          include: {
+            model: User, // added this back
+            attributes: ['username']
+          }
+        }
         // {
-        //   model: User, // add this back later
+        //   model: User, // added this back
         //   attributes: ['username']
         // }
       ]
@@ -60,15 +60,15 @@ router.get('/:id', (req, res) => {
     include: [
       {
         model: Rating,
-        attributes: ['id', 'rating', 'comment', 'restaurant_id'], // add 'user_id' to attributes , 'created_at'
+        attributes: ['id', 'rating', 'comment', 'restaurant_id', 'user_id'], // add 'user_id' to attributes , 'created_at'
         order: [['created_at', 'DESC']], // newest rating first
-        // include: {  
-      //   //   model: User,  // add this back later
-      //   //   attributes: ['username']
-        // }
+        include: {  
+          model: User,  // added this back
+          attributes: ['username']
+        }
       }
       // {
-      //   model: User, // add this back later
+      //   model: User, // added this back
       //   attributes: ['username']
       // }
     ]
