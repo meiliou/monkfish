@@ -2,34 +2,25 @@
   <section class="mx-auto my-2" style="max-width: 40rem;">  
     {{> restaurant-info restaurant 
         imageBaseUrl="../images" 
-        showLink=false }}  
-        {{!-- showRatings=true //can't get this to work --}}
+        showLink=false}}  
+        {{!-- showRatings=true}} couldn't get this to work --}}
   </section>
 </div>
+
 <div class="row d-flex justify-content-center">
     <div class="col-md-12 col-lg-10">
         {{!-- <div class="card text-dark"> --}}
             <div class="card-body p-4">
+              {{!-- {{#if loggedIn}} --}}
+                {{> addrating}}
+              {{!-- {{/if}} --}}
               {{> ratings ratings=restaurant.ratings}}
             </div>
         {{!-- </div> --}}
     </div>
 </div>
-{{!-- {{#if loggedIn}}
-<form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
 
-  <div>
-    <button type="submit">add comment</button>
-    <button type="button" class="upvote-btn">upvote</button>
-  </div>
-</form>
-{{/if}} --}}
-
-{{!-- {{#if loggedIn}}
-<script src="/javascript/comment.js"></script>
-<script src="/javascript/upvote.js"></script>
-{{/if}} --}}
-{{!-- <script src="/javascript/rating.js"></script> --}}
+{{!-- {{#if loggedIn}} --}}
+<script src="/javascript/rate-stars.js"></script>
+<script src="/javascript/edit-rating.js"></script>
+{{!-- {{/if}} --}}
