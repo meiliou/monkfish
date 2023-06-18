@@ -8,8 +8,8 @@ const app = express();
 const hbs = exphbs.create({ helpers });
 const PORT = process.env.PORT || 3001;
 
-const signupRoutes = require('./controllers/api/signup-routes');
-const loginRoutes = require('./controllers/api/login-routes');
+const signupRoutes = require('./controllers/api/user-routes');
+const loginRoutes = require('./controllers/api/user-routes');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -37,18 +37,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 // session middleware
 app.use(session(sess));
 
-// turn on routes
+// Set up handlebars.js engine with custom helpers
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve up static assets (useful for front-end and JS files)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Session middleware
+app.use(session(sess));
+
+// Routes
 app.use(signupRoutes);
 app.use(loginRoutes);
-app.use(routes); //same as app.use(require('./controllers'));
+app.use(routes);
 
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
-
-// turn on connection to db and server
+// Turn on connection to the database and start the server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () => console.log('Now listening on port', PORT));
 });

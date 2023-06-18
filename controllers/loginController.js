@@ -1,29 +1,33 @@
-const User = require('../models/User');
+// Import required modules and files
+const { User } = require('../../models');
 
-const loginController = {
-  getLogin: (req, res) => {
-    const { error } = req.query;
-    const loggedIn = req.session.user ? true : false;
-    res.render('login', { error, loggedIn });
-  },
+// Controller function for login
+const loginController = (req, res) => {
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then(dbUserData => {
+    if (!dbUserData) {
+      res.status(400).json({ message: 'No user with that username!' });
+      return;
+    }
 
-  postLogin: (req, res) => {
-    const { username, password } = req.body;
+    const validPassword = dbUserData.checkPassword(req.body.password);
 
-    User.findOne({ username })
-      .then(user => {
-        if (!user || !user.checkPassword(password)) {
-          return res.redirect('/login?error=Invalid%20username%20or%20password');
-        }
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password!' });
+      return;
+    }
+    req.session.save(() => {
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
+      req.session.email = dbUserData.email;
+      req.session.loggedIn = true;
 
-        req.session.user = user;
-        res.redirect('/dashboard');
-      })
-      .catch(err => {
-        console.log(err);
-        return res.status(500).json({ error: 'Database error' });
-      });
-  }
+      res.json({ user: dbUserData, message: 'You are now logged in!' });
+    });
+  });
 };
 
 module.exports = loginController;
