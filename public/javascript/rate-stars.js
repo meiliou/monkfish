@@ -52,25 +52,18 @@ function saveRating(rating) {
   console.log('Selected rating:', rating);
 }
 
-// ===================================================
 // Function to save the rating and comment
 function saveRatingandComment(rating, comment) {
-  // I have textarea element with the ID "textAreaExample"
-  // const userId = getUserId(); // Get the user ID associated with the rating
-  // Get the restaurant ID from the URL
   const currentURL = window.location.href;
-  const restaurant_id = currentURL.split('/').pop(); // Get the restaurant ID associated with the rating
+  const restaurant_id = currentURL.split('/').pop();
 
-  // Prepare the data to be sent to the server
   const data = {
     rating: rating,
     comment: comment,
-    // userId: userId,
     restaurant_id: restaurant_id,
     created_at: new Date().toISOString()
   };
 
-  // Send an AJAX request to save the rating to the server
   fetch('/api/ratings', {
     method: 'POST',
     headers: {
@@ -78,40 +71,34 @@ function saveRatingandComment(rating, comment) {
     },
     body: JSON.stringify(data)
   })
-  .then(response => response.json())
-  .then(result => {
-    console.log('Rating saved successfully:', result);
-    // Refresh the page
-    location.reload();
-  })
-  .catch(error => {
-    console.error('Error saving rating:', error);
-    // Handle any errors that occur during the rating saving process
-  });
+    .then(response => response.json())
+    .then(result => {
+      console.log('Rating saved successfully:', result);
+      appendRatingToList(result); // Append the new rating to the list
+    })
+    .catch(error => {
+      console.error('Error saving rating:', error);
+      // Handle any errors that occur during the rating saving process
+    });
+};
+
+function appendRatingToList(newRating) {
+  const ratingList = document.getElementById('rating-container');
+  const newRatingElement = createRatingElement(newRating); // Create the HTML element for the new rating
+  ratingList.appendChild(newRatingElement);
 }
-// ===================================================
 
-// function saveRatingandComment(rating, comment) {
-//   const currentURL = window.location.href;
-//   const restaurant_id = currentURL.split('/').pop();
+function createRatingElement(rating) {
+  const ratingElement = document.createElement('div');
+  ratingElement.classList.add('rating');
+  ratingElement.innerHTML = `
+    <p>{{format_date rating.created_at}} {{convertToStarRating rating.rating}}</p>
+    <p>{{rating.comment}}</p>
+  `;
+  return ratingElement;
+}
 
-//   const data = {
-//     rating: rating,
-//     comment: comment,
-//     restaurant_id: restaurant_id,
-//     created_at: new Date().toISOString()
-//   };
-
-//   const ratingId = getRatingIdFromForm(); // Get the ID of the rating being edited from the form
-//   if (ratingId) {
-//     console.log('Updating rating. Rating ID:', ratingId);
-//     updateRating(ratingId, data);
-//   } else {
-//     console.log('Creating new rating.');
-//     createRating(data);
-//   }
-// }
-
+// // Function to get the ratings for the current restaurant
 // function createRating(data) {
 //   fetch('/api/ratings', {
 //     method: 'POST',
@@ -131,8 +118,6 @@ function saveRatingandComment(rating, comment) {
 // }
 
 // function updateRating(ratingId, data) {
-//   debugger;
-
 //   fetch(`/api/ratings/${ratingId}`, {
 //     method: 'PUT',
 //     headers: {
@@ -163,10 +148,3 @@ function saveRatingandComment(rating, comment) {
 //     return null;
 //   }
 // }
-
-// // function appendRatingToList(newRating) {
-// //   const template = Handlebars.compile('{{> ratings}}');
-// //   const ratingList = document.getElementById('rating-list');
-// //   const ratingHTML = template({ ratings: [newRating] }); // Wrap the new rating in an array to pass it to the partial
-// //   ratingList.insertAdjacentHTML('beforeend', ratingHTML);
-// // }
