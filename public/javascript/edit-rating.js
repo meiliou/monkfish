@@ -31,6 +31,12 @@ function repopulateForm(ratingId) {
         
         const commentTextarea = document.getElementById('textAreaExample');
         commentTextarea.value = comment;
+
+        // Set the value of the hidden input field with the rating ID
+        const ratingIdInput = document.getElementById('ratingIdInput');
+        if (ratingIdInput) {
+            ratingIdInput.value = ratingId;
+        }
     })
     .catch(error => {
       console.error('Error fetching rating data:', error);
