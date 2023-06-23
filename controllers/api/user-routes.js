@@ -4,6 +4,8 @@ const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 const { User } = require('../../models');
 const signupController = require('../signupController');
+const express = require('express');
+
 
 // GET /api/users
 router.get('/', (req, res) => {
@@ -84,36 +86,38 @@ router.post('/:id', (req, res) => {
     });
 });
 
-// Login route
 router.post('/login', (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username
-    }
-  }).then(dbUserData => {
-    if (!dbUserData) {
-      res.status(400).json({ message: 'No user with that username!' });
-      return;
-    }
+    User.findOne({
+      where: {
+        username: req.body.username
+      }
+    }).then(dbUserData => {
+      if (!dbUserData) {
+        res.status(400).json({ message: 'No user with that email username!' });
+        return;
+      }
+      
+      // used to check progress prior to adding password encryption
+      // res.json({ user: dbUserData });
+  
+      // Verify user
+      // const validPassword = dbUserData.checkPassword(req.body.password);
+      // if (!validPassword) {
+      //   res.status(400).json({ message: 'Incorrect password!' });
+      //   return;
+      // }
+      
+      req.session.save(() => {
+        // declare session variables
+        req.session.user_id = dbUserData.id;
+        req.session.username = dbUserData.username;
+        req.session.loggedIn = true;
 
-    const validPassword = dbUserData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect password!' });
-      return;
-    }
-    req.session.save(() => {
-      req.session.user_id = dbUserData.id;
-      req.session.username = dbUserData.username;
-      req.session.email = dbUserData.email;
-      req.session.loggedIn = true;
-
-      res.json({ user: dbUserData, message: 'You are now logged in!' });
-    });
-  });
+        res.json({ user: dbUserData, message: 'You are now logged in!' });
+      });
+    });  
 });
 
-// Logout route
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -124,31 +128,19 @@ router.post('/logout', (req, res) => {
   }
 });
 
-// Signup route
 router.post('/signup', [
-  body('name').notEmpty().withMessage('Name is required'),
+  body('username').notEmpty().withMessage('Name is required'),
   body('email').isEmail().withMessage('Must be a valid email address'),
   body('password').notEmpty().withMessage('Password is required'),
   body('experience').optional()
 ], (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    experience: req.body.experience
-  })
-    .then(dbUserData => res.json(dbUserData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: 'An error occurred' });
-    });
+  signupController.signup(req, res); // Call signup method of signupController
 });
 
 
 
-module.exports = router;
+
+
+
+
+module.exports = router, signupController;

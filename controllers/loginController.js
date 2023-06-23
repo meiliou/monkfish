@@ -1,5 +1,10 @@
 // Import required modules and files
 const { User } = require('../../models');
+const { body, validationResult } = require('express-validator');
+const loginController = require('../loginController');
+const express = require('express');
+
+
 
 // Controller function for login
 const loginController = (req, res) => {
@@ -13,7 +18,7 @@ const loginController = (req, res) => {
       return;
     }
 
-    const validPassword = dbUserData.checkPassword(req.body.password);
+    //const validPassword = dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect password!' });

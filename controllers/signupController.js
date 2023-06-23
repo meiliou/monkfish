@@ -1,28 +1,26 @@
 // Import required modules and files
+const { validationResult } = require('express-validator');
 const { User } = require('../models');
 
-// Controller function for signup
-const signupController = (req, res) => {
-  User.create({
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    hospitalityExperience: req.body.hospitalityExperience
-  })
-    .then(dbUserData => {
-      req.session.save(() => {
-        req.session.user_id = dbUserData.id;
-        req.session.username = dbUserData.username;
-        req.session.email = dbUserData.email;
-        req.session.loggedIn = true;
+const signupController = {
+  signup: (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-        res.json(dbUserData);
-      });
+    User.create({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      hospitalityExperience: req.body.hospitalityExperience
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: 'An error occurred' });
-    });
+      .then(dbUserData => res.json(dbUserData))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: 'An error occurred' });
+      });
+  }
 };
 
 module.exports = signupController;
