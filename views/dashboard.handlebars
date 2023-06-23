@@ -1,0 +1,30 @@
+<!-- dashboard.handlebars -->
+
+  {{#content 'body'}}
+    <div class="container mt-4">
+      <h1>Welcome to the Dashboard</h1>
+
+      {{#if loggedIn}}
+        <h2>Posts</h2>
+        <ul class="list-group">
+          {{#each posts}}
+            <li class="list-group-item">
+              <h3>{{title}}</h3>
+              <p>{{content}}</p>
+              <p>Created by: {{username}}</p>
+              <button class="btn btn-primary">Edit</button>
+            </li>
+          {{/each}}
+        </ul>
+
+        <button class="btn btn-success mt-3">Create Post</button>
+
+        <!-- Add the code for ratings and restaurants here -->
+
+      {{else}}
+        <p>Please log in to access the dashboard.</p>
+      {{/if}}
+    </div>
+
+    <script src="/javascript/dashboard.js"></script>
+  {{/content}}
