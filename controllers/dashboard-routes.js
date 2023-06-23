@@ -15,7 +15,7 @@ const getUserData = async (userId) => {
   };
 };
 
-router.get('/dashboard', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const userId = req.session.user_id;
     const userData = await getUserData(userId);
