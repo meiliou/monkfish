@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const { User, Restaurant } = require('../models');
+const { postData, restaurantData, user } = require('./api/restaurant-routes');
+
 // const withAuth = require('../utils/auth');
 
 const getUserData = async (userId) => {

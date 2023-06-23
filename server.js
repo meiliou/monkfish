@@ -24,7 +24,7 @@ const sess = {
   })
 };
 
-const hbs = exphbs.create({ helpers });
+
 // set up handlebars.js engine with custom helpers
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -41,19 +41,7 @@ app.use(session(sess));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Serve up static assets (useful for front-end and JS files)
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Session middleware
-app.use(session(sess));
-
 // Routes
-app.use(signupRoutes);
-app.use(loginRoutes);
 app.use(routes);
 
 // Error handling middleware
