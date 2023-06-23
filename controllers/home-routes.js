@@ -107,5 +107,4 @@ router.get('/restaurant/:id', (req, res) => {
       });
 });
 
-
 module.exports = router;
