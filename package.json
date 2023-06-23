@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meiliou/monkfish-pasta.git"
+    "url": "git+https://github.com/meiliou/monkfish.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meiliou/monkfish-pasta/issues"
+    "url": "https://github.com/meiliou/monkfish/issues"
   },
-  "homepage": "https://github.com/meiliou/monkfish-pasta#readme",
+  "homepage": "https://github.com/meiliou/monkfish#readme",
   "dependencies": {
     "connect-session-sequelize": "^7.1.7",
     "dotenv": "^16.1.4",
@@ -25,8 +25,8 @@
     "express-handlebars": "^7.0.7",
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
-    "install": "^0.13.0",
-    "mdb-ui-kit": "^6.3.1",
+    "handlebars": "^4.7.7",
+    "jest": "^29.5.0",
     "mysql2": "^3.3.3",
     "sequelize": "^6.32.0",
     "sequelize-cli": "^6.6.1"

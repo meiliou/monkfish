@@ -2,10 +2,9 @@
 const sequelize = require('../../config/connection');
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
-const { User } = require('../../models');
 const signupController = require('../signupController');
 const express = require('express');
-
+const { Restaurant, Rating, User } = require('../../models');
 
 // GET /api/users
 router.get('/', (req, res) => {
@@ -137,10 +136,5 @@ router.post('/signup', [
   signupController.signup(req, res); // Call signup method of signupController
 });
 
-
-
-
-
-
-
 module.exports = router, signupController;
+

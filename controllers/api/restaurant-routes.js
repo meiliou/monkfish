@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Restaurant } = require('../../models');
+const { Restaurant, Rating, User } = require('../../models');
 const sequelize = require('../../config/connection');
 // const withAuth = require('../../utils/auth');
 
@@ -14,27 +14,29 @@ router.get('/', (req, res) => {
         'address',
         'restaurant_url',
         'created_at',
-      //   [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+        [sequelize.literal('(SELECT COUNT(*) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'rating_count'],
+        [sequelize.literal('(SELECT CAST(AVG(rating) AS DECIMAL(10,1)) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'average_rating']
       ],
-        order: [['created_at', 'DESC']], // newest post first
+        order: [['created_at', 'DESC']], // newest restaurant first
       include: [
-        // include the Comment model here:
+        // include the Rating model here:
+        {
+          model: Rating,
+          attributes: ['id', 'rating', 'comment', 'restaurant_id', 'user_id'], // add 'user_id' to attributes , 'created_at' WHY???
+          order: [['created_at', 'DESC']], // newest rating first
+          include: {
+            model: User, // added this back
+            attributes: ['username']
+          }
+        }
         // {
-        //   model: Comment,
-        //   attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-        //   include: {
-        //     model: User,
-        //     attributes: ['username']
-        //   }
-        // },
-        // {
-        //   model: User,
+        //   model: User, // added this back
         //   attributes: ['username']
         // }
       ]
     })
-      .then(dbPostData => res.json(dbPostData))
-      .catch(err => {
+        .then(dbRestaurantData => res.json(dbRestaurantData))
+        .catch(err => {
         console.log(err);
         res.status(500).json(err);
       });
@@ -52,29 +54,31 @@ router.get('/:id', (req, res) => {
       'address',
       'restaurant_url',
       'created_at',
-      // [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+      [sequelize.literal('(SELECT COUNT(*) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'rating_count'],
+      [sequelize.literal('(SELECT CAST(AVG(rating) AS DECIMAL(10,1)) FROM rating WHERE restaurant.id = rating.restaurant_id)'), 'average_rating']
     ],
     include: [
+      {
+        model: Rating,
+        attributes: ['id', 'rating', 'comment', 'restaurant_id', 'user_id'], // add 'user_id' to attributes , 'created_at'
+        order: [['created_at', 'DESC']], // newest rating first
+        include: {  
+          model: User,  // added this back
+          attributes: ['username']
+        }
+      }
       // {
-      //   model: Comment,
-      //   attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-      //   include: {
-      //     model: User,
-      //     attributes: ['username']
-      //   }
-      // },
-      // {
-      //   model: User,
+      //   model: User, // added this back
       //   attributes: ['username']
       // }
     ]
   })
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
+    .then(dbRestaurantData => {
+      if (!dbRestaurantData) {
+        res.status(404).json({ message: 'No restaurant found with this id' });
         return;
       }
-      res.json(dbPostData);
+      res.json(dbRestaurantData);
     })
     .catch(err => {
       console.log(err);
@@ -98,21 +102,6 @@ router.post('/', (req, res) => {
       });
 });
 
-
-// PUT /api/posts/upvote
-// router.put('/upvote', withAuth, (req, res) => {
-//   // make sure the session exists first
-//   if (req.session) {
-//     // pass session id along with all destructured properties on req.body      // custom static method created in models/Post.js
-//     Post.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
-//       .then(updatedVoteData => res.json(updatedVoteData))
-//       .catch(err => {
-//         console.log(err);
-//         res.status(500).json(err);
-//       });
-//   }
-// });
-
 // router.put('/:id', withAuth, (req, res) => {
 router.put('/:id', (req, res) => {
     Restaurant.update(
@@ -128,12 +117,12 @@ router.put('/:id', (req, res) => {
         }
       }
     )
-      .then(dbPostData => {
-        if (!dbPostData) {
-          res.status(404).json({ message: 'No post found with this id' });
+      .then(dbRestaurantData => {
+        if (!dbRestaurantData) {
+          res.status(404).json({ message: 'No restaurant found with this id' });
           return;
         }
-        res.json(dbPostData);
+        res.json(dbRestaurantData);
       })
       .catch(err => {
         console.log(err);
@@ -148,12 +137,12 @@ router.delete('/:id', (req, res) => {
         id: req.params.id
       }
     })
-      .then(dbPostData => {
-        if (!dbPostData) {
-          res.status(404).json({ message: 'No post found with this id' });
+      .then(dbRestaurantData => {
+        if (!dbRestaurantData) {
+          res.status(404).json({ message: 'No restaurant found with this id' });
           return;
         }
-        res.json(dbPostData);
+        res.json(dbRestaurantData);
       })
       .catch(err => {
         console.log(err);
