@@ -2,16 +2,6 @@ const User = require('./User');
 const Restaurant = require('./Restaurant');
 const Rating = require('./Rating');
 
-// create associations
-// User.hasMany(Restaurant, {
-//     foreignKey: 'user_id'
-// });
-
-// We also need to make the reverse association
-// Restaurant.hasMany(User, {
-//     foreignKey: 'user_id',
-// });
-
 User.belongsToMany(Restaurant, {
     through: Rating,
     as: 'rated_restaurants',
