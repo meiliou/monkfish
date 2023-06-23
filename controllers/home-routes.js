@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
           }
         },
         // {
-        //   model: User, // add this back later
+        //   model: User, // add this back later (don't need this unless a specific user has access to add a restaurant)
         //   attributes: ['username']
         // }
       ]
@@ -81,7 +81,7 @@ router.get('/restaurant/:id', (req, res) => {
           }
         }
         // {
-        //   model: User, // add this back later
+        //   model: User, // add this back later (don't need this unless a specific user has access to add a restaurant)
         //   attributes: ['username']
         // }
       ]
